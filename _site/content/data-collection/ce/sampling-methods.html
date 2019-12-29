@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Data 100 Notes &amp; Extensions</title>
+  <meta name="description" content="In the data collection stage of the lifecycle, we rely on a few sampling methods to select members from the population to be included in the study.In this se...">
+
+  <link rel="canonical" href="http://localhost:4000//content/data-collection/ce/sampling-methods.html">
+  <link rel="alternate" type="application/rss+xml" title="Data 100 Notes & Extensions" href="http://localhost:4000//feed.xml">
+
+  <meta property="og:url"         content="http://localhost:4000//content/data-collection/ce/sampling-methods.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Data 100 Notes &amp; Extensions" />
+<meta property="og:description" content="In the data collection stage of the lifecycle, we rely on a few sampling methods to select members from the population to be included in the study.In this se..." />
+<meta property="og:image"       content="http://localhost:4000/images/logo/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "http://localhost:4000//content/data-collection/ce/sampling-methods.html",
+  "headline": "Data 100 Notes &amp; Extensions",
+  "datePublished": "2019-12-29T14:31:51-05:00",
+  "dateModified": "2019-12-29T14:31:51-05:00",
+  "description": "In the data collection stage of the lifecycle, we rely on a few sampling methods to select members from the population to be included in the study.In this se...",
+  "author": {
+    "@type": "Person",
+    "name": "Paul Shao"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:4000/",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://localhost:4000/",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<!-- (mostly) copied from nbconvert configuration -->
+<!-- https://github.com/jupyter/nbconvert/blob/master/nbconvert/templates/html/mathjax.tpl -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+    },
+    
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML' async></script>
+
+
+  <!-- DOM updating function -->
+  <script src="/assets/js/page/dom-update.js"></script>
+
+  <!-- Selectors for elements on the page -->
+  <script src="/assets/js/page/documentSelectors.js"></script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" async></script>
+  <script src="/assets/js/page/anchors.js" async></script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/assets/images/edit-button.svg" alt="Start thebelab interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlight:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+<script src="https://unpkg.com/thebelab@latest/lib/index.js" async></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+
+                // Clean up the language to make it work w/ CodeMirror and add it to the cell
+                dataLanguage = ""
+                dataLanguage = detectLanguage(dataLanguage);
+                codeCell.setAttribute('data-language', dataLanguage)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+
+            // Find any cells with an initialization tag and ask ThebeLab to run them when ready
+            var thebeInitCells = document.querySelectorAll('div.tag_thebelab-init');
+            thebeInitCells.forEach((cell) => {
+                console.log("Initializing ThebeLab with cell: " + cell.id);
+                cell.querySelector('.thebelab-run-button').click();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+
+// Helper function to munge the language name
+var detectLanguage = (language) => {
+    if (language.indexOf('python') > -1) {
+        language = "python";
+    }
+    return language;
+}
+</script>
+
+
+
+  <!-- Load the auto-generating TOC (non-async otherwise the TOC won't load w/ turbolinks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.8.1/tocbot.min.js" async></script>
+  <script src="/assets/js/page/tocbot.js"></script>
+
+  <!-- Google analytics -->
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '');
+</script>
+
+
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script>
+
+  <!-- Load custom website scripts -->
+  <script src="/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js" async></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+
+  <!-- Load JS that depends on site variables -->
+  <script src="/assets/js/page/copy-button.js" async></script>
+
+  <!-- Hide cell code -->
+  <script src="/assets/js/page/hide-cell.js" async></script>
+
+  <!-- Printing the screen -->
+  <!-- Include nbinteract for interactive widgets -->
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" async></script>
+<script>
+printContent = () => {
+    // MathJax displays a second version of any math for assistive devices etc.
+    // This prevents double-rendering in the PDF output.
+    var ignoreAssistList = [];
+    assistives = document.querySelectorAll('.MathJax_Display span.MJX_Assistive_MathML').forEach((element, index) => {
+        var thisId = 'MathJax-assistive-' + index.toString();
+        element.setAttribute('id', thisId);
+        ignoreAssistList.push(thisId)
+    });
+
+    // Print the actual content object
+    printJS({
+        printable: 'textbook_content',
+        type: 'html',
+        css: "/assets/css/styles.css",
+        style: "#textbook_content {padding-top: 40px};",
+        scanStyles: false,
+        targetStyles: ["*"],
+        ignoreElements: ignoreAssistList,
+        documentTitle: "Made with Jupyter Book"
+    })
+};
+
+initPrint = () => {
+    document.querySelector('#interact-button-print').addEventListener('click', printContent)
+}
+
+initFunction(initPrint)
+</script>
+
+</head>
+
+  <body>
+    <!-- Include the ThebeLab config so it gets reloaded on each page -->
+    <script type="text/x-thebe-config">{
+    requestKernel: true,
+    binderOptions: {
+    repo: "YOUR-ORG/YOUR-REPO",
+    ref: "gh-pages",
+    },
+    codeMirrorConfig: {
+    theme: "abcdef",
+    mode: "python"
+    },
+    kernelOptions: {
+    kernelName: "python3",
+    path: ""
+    }
+}
+</script>
+
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://jupyterbook.org/"><img src="/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">Data 100 Notes & Extensions</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/intro">
+        <a class="c-sidebar__entry"
+          href="/intro.html"
+        >
+          
+          Home
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/ds-lifecycle/ds-lifecycle">
+        <a class="c-sidebar__entry"
+          href="/ds-lifecycle/ds-lifecycle.html"
+        >
+          
+            1.
+          
+          Overview
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/core">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/core.html"
+              >
+                
+                  1.1
+                
+                At the Core of the Data Science Lifecycle...
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/pitfalls">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/pitfalls.html"
+              >
+                
+                  1.2
+                
+                Present-day Challenges in Data Science
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/bias">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/bias.html"
+              >
+                
+                  1.3
+                
+                Biases and How to Avoid Them
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/hce">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/hce.html"
+              >
+                
+                  1.4
+                
+                Human Context Ethics (HCE) in Data Science (Under Construction)
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/data-collection/main">
+        <a class="c-sidebar__entry"
+          href="/data-collection/main.html"
+        >
+          
+            2.
+          
+          Data Collection
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/collect-extract">
+              <a class="c-sidebar__entry"
+                href="/data-collection/collect-extract.html"
+              >
+                
+                  2.1
+                
+                Collecting and Extracting Data
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/summarize">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/summarize.html"
+              >
+                
+                  2.2
+                
+                Summarizing Data - A Statistical and Probabilistic Perspective
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/sampling-methods">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/sampling-methods.html"
+              >
+                
+                  2.3
+                
+                Sampling Methods
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/srs">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/srs.html"
+              >
+                
+                  2.4
+                
+                Simple Random Sampling
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</nav>
+
+      
+      <div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button
+      id="js-sidebar-toggle"
+      class="hamburger hamburger--arrowalt is-active"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="buttons">
+<div class="download-buttons-dropdown">
+    <button id="dropdown-button-trigger" class="interact-button"><img src="/assets/images/download-solid.svg" alt="Download" /></button>
+    <div class="download-buttons">
+        
+        <a id="interact-button-print"><button id="interact-button-download" class="interact-button">.pdf</button></a>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title"><img src="/assets/images/list-solid.svg" alt="Search" />   On this page</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="/search.html" class="topbar-right-button" id="search-button">
+    <img src="/assets/images/search-solid.svg" alt="Search" />
+  </a>
+</div>
+
+      <main class="c-textbook__page" tabindex="-1">
+            <div class="c-textbook__content" id="textbook_content">
+              <p>In the data collection stage of the lifecycle, we rely on a few sampling methods to select members from the population to be included in the study.</p>
+
+<p>In this section, we will go over some good and bad ways to build our sampling dataset.</p>
+
+<h1 id="good-ways-to-sample">Good Ways to sample</h1>
+
+<h2 id="simple-random-sample-srs">Simple Random Sample (SRS)</h2>
+
+<p><strong>Every member and set of members has an equal chance of being included in the sample</strong>. Usuallly we utilize a random number generator or some other chance process to retrieve a simple random sample from the population.</p>
+
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/srs.gif" alt="illustration" /></p>
+
+<p>Another intuitive example would be if a group of people wants to sample from all the members, putting people’s names in a box and choosing without looking is resembling of the Simple Random Sample approach.</p>
+
+<h2 id="stratified-random-sample">Stratified Random Sample</h2>
+
+<p>In this sampling method, the population is first split into groups. The overall sample consists of some members from every group. The members from each group are chosen randomly.</p>
+
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/strata-sample.gif" alt="illustration" /></p>
+
+<p>Here’s another example: the ASUC surveys 100 undergraduate students by getting random samples of 25 freshmen, 25 sophomores, 25 juniors, and 25 seniors.</p>
+
+<p>A stratified sample guarantees that members from each group will be represented in the sample, so this sampling method is <strong>suited</strong> for when we want an even representation of members from every group.</p>
+
+<h3 id="common-stratified-sampling-strategies">Common Stratified Sampling Strategies</h3>
+
+<h4 id="proportionate-allocation">Proportionate Allocation</h4>
+
+<p>Proportionate allocation uses a <strong>sampling fraction</strong> in each of the strata that is proportional to that of the total population.</p>
+
+<p>For example, if the population consists of $N$ total individuals, $M$ of which are male and $F$ are female (where $M+F = N$), then maintaining the relative size of the two samples ($n_1 = \frac{M}{N}$ males, $n_2 = \frac{F}{N}$ females) should reflect this proportion.</p>
+
+<p>Numerically, if let $N = 100$, $M = 40$, $F=60$, then if we use proportionate allocation for stratified sampling, and assume we sample a total of 10 individuals. We want to make sure we sample $\frac{40}{100} \times 10 = 4$ males for the male stratum, and $\frac{60}{100} \times 10 = 6$ females for the female stratum.</p>
+
+<h4 id="optimum-allocation">Optimum Allocation</h4>
+
+<p>The sampling fraction of each stratum is proportionate to both the proportion and <strong>the standard deviation of the distribution of the variable</strong>. Larger samples are taken in the strata with <strong>the greatest variability</strong> to <strong>generate the least possible overall sampling variance</strong>.</p>
+
+<h3 id="advantages-of-stratified-sampling">Advantages of Stratified Sampling</h3>
+
+<p>We generally prefer stratified sampling to simple random sampling when:</p>
+<ol>
+  <li>measurements within strata have <strong>lower standard deviation</strong>; stratification gives smaller error in estimation.</li>
+  <li>measurements become more manageable/cheaper when the population is grouped into strata.</li>
+  <li>we want to have <strong>estimates of population parameters</strong> for groups within the population.</li>
+</ol>
+
+<p>If the population density varies greatly within a region, stratified sampling will ensure that estimates can be made with equal accuracy in different parts of the region, and that comparisons of sub-regions can be made with equal statistical power.</p>
+
+<h3 id="disadvantages-of-stratified-sampling">Disadvantages of Stratified Sampling</h3>
+
+<p>Stratified Sampling fails when the population cannot be partitioned into <strong>disjoint subgroups</strong>.</p>
+
+<p>One thing to be cautious about is that combining sub-strata to ensure adequate and even numbers is not always desirable as it can lead to <strong>Simpson’s paradox</strong>, where trends that <strong>actually exist in different groups of data disappear or even reverse when the groups are combined</strong>.</p>
+
+<h2 id="cluster-random-sample">Cluster Random Sample</h2>
+
+<p>Contrary to Stratified Sampling, in cluster sampling, the population is first divided into groups. The overall sample consists of every member from some of the groups. THe groups are then selected at random.</p>
+
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/cluster-sample.gif" alt="illustration" /></p>
+
+<p>Here’s another example: an airline company wants to survey its customers one day, so they randomly select 5 flights that day and survey every passenger on those flights.</p>
+
+<p>A cluster sample guarantees that every member from the chosen groups is surveyed. It performs well when each group reflects the population as a whole.</p>
+
+<h3 id="advantages-of-cluster-sampling">Advantages of Cluster Sampling</h3>
+
+<p>Since cluster sampling samples all the members within a few randomly chosen cluster, it is usually cheapter than other sampling methods.</p>
+
+<p>Practically speaking though, we resort to cluster sampling only when <strong>the sampling frame of all elements is not available</strong>.</p>
+
+<h3 id="disadvantages-of-cluster-sampling">Disadvantages of Cluster Sampling</h3>
+
+<ol>
+  <li>Cluster sampling tends to produce higher sampling error. In particular, when we have greater differences (<strong>hetreogeneity</strong>) between clusters (<strong>intercluster difference</strong>) and greater similarity (<strong>homogeneity</strong>) between elements within a cluster (<strong>intracluster similarity</strong>), cluster sampling will become a lot less accurate.</li>
+  <li>As convenient and economical as cluster sampling is, it is usually more sophisticated and requires more attention to analyze and interpret the collected data to approximate the actual true population.</li>
+</ol>
+
+<h3 id="two-stage-cluster-sampling">Two-Stage Cluster Sampling</h3>
+
+<p>The first disadvantage that we have seen in the previous section leads us to an augmented cluster sampling method: two-stage cluster sampling.</p>
+
+<p>As a variant of multistatge sampling, two-stage cluster sampling works by:</p>
+<ol>
+  <li>selecting cluster samples</li>
+  <li>selecting a sample of elements from every sampled cluster (usually using SRS)</li>
+</ol>
+
+<p>Note that in the second stage, the number of elements selected from different clusters are <strong>not necessarily equal</strong>.</p>
+
+<p>The two-stage cluster sampling method aims at minimizing survey costs and at the same time <strong>controlling the uncertainty related to estimates of interest</strong>.</p>
+
+<h2 id="systematic-random-sample">Systematic Random Sample</h2>
+
+<p>In systematic sampling, members of the population are sorted in some order. A starting point is then selected at random, and every $i$th member is chosen to be in the sample.</p>
+
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/sys-sample2.gif" alt="illustration" /></p>
+
+<p>Here’s another example: a principal takes an alphabetized list of student names and picks a random starting point. Every 20th student is selected to take a survey.</p>
+
+<h1 id="bad-ways-to-sample">Bad Ways to sample</h1>
+
+<p>Here are a few common sampling methods that could easily result in <strong>selection bias</strong>.</p>
+
+<h2 id="convenience-sample">Convenience sample</h2>
+
+<p>We choose a sample that is readily available in some non-random way.</p>
+
+<p>For example, we poll students as they walk into the entrance of a lecture hall on campus.</p>
+
+<p>It easily introduces biases as the location and time of day and other factors can produce a biased sample of people.</p>
+
+<h2 id="voluntary-response-sample">Voluntary Response Sample</h2>
+
+<p>We put out a request for members of a population to join the sample, and people decide whether or not to be in the sample.</p>
+
+<p>A very common example is sending out a Google Form and asking people to fill it out.</p>
+
+<p>It easily introduces biases as the people might either not respond (<strong>non-response bias</strong>) or for the ones who do, they might tend to <strong>have similarly strong opinions compared to the rest of the population</strong>.</p>
+
+            </div>
+            <div class="c-textbook__footer" id="textbook_footer">
+              
+<nav class="c-page__nav">
+  
+
+  
+</nav>
+
+              <footer>
+  <p class="footer">This page was created by <a href="https://github.com/jupyter/jupyter-book/graphs/contributors">The Jupyter Book Community</a></p>
+</footer>
+
+            </div>
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

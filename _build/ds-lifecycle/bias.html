@@ -1,0 +1,55 @@
+---
+title: |-
+  Biases and How to Avoid Them
+pagenum: 4
+prev_page:
+  url: /ds-lifecycle/pitfalls.html
+next_page:
+  url: /ds-lifecycle/hce.html
+suffix: .md
+search: bias sampling sample dataset samples model means our results those data collection probably others individual really factors measure ones because us different experiment selection participants actually participate non happens particular groups not access only build companies during process sometimes risk imposing gather precisely where among collected members lower intuitively randomly choose higher chance being chosen wonder realistic shouldnt unique theoretically yes practically speaking collect just characteristics observe cannot comprehensively cover every characteristic wont either dont address problems biased cause predict differently erroneously true population un even distribution within concerns fact arent aware falsely attribute phenomenon study infer something intrinsically wrong
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Biases and How to Avoid Them</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Sampling-Bias">Sampling Bias<a class="anchor-link" href="#Sampling-Bias"> </a></h1><p>During the data collection process, we sometimes risk imposing <strong>sampling bias</strong> on the dataset we gather.</p>
+<p>More precisely, <strong>sampling bias</strong> is a bias where among all the samples we have collected in the dataset, <strong>some members have a lower sampling probably than others</strong>. Intuitively, it means that if we randomly choose one sample from the dataset, some samples have a higher chance of being chosen than others.</p>
+<p>You may wonder that realistic, shouldn't all samples be unique? Theoretically, yes; but practically speaking, each individual sample we collect is really just <strong>an individual collection of characteristics (factors) we observe/measure</strong>. This means <strong>we cannot comprehensively cover every characteristic for each sample (and we probably won't either, for ones that don't really address our problems)</strong>.</p>
+<p>The <strong>sampling bias</strong> results in a biased sample, which can cause our model to predict differently and erroneously about the true population (because of the un-even distribution within our sampling dataset). What concerns us more is the fact that when people aren't aware of this bias, <strong>they can falsely attribute the results to the phenomenon in the study and infer something intrinsically wrong about the samples rather than raise doubts about the method of sampling</strong>.</p>
+<h1 id="Types-of-Sampling-Bias">Types of Sampling Bias<a class="anchor-link" href="#Types-of-Sampling-Bias"> </a></h1><p>Here's a few different sampling biases that results from different stages in an experiment:</p>
+<ul>
+<li>Selection from a <strong>specific location</strong></li>
+<li><strong>Self-selection bias</strong>:<ul>
+<li>This means in the conducted experiment, <strong>the participants have forms of control over whether to actually participate</strong>. </li>
+<li>Their decision to participate may actually <strong>correlate with features of the model, which makes the participants a non-representative and non-generalizable sample</strong>.</li>
+</ul>
+</li>
+<li><strong>Exclusion bias</strong>:<ul>
+<li>This happens when we <strong>exclude particular groups from the sample</strong>.</li>
+<li>This usually occurs not because we intentionally avoid their representation in the sample databset (hopefully), but we <strong>have great difficulty (high cost / rare to access and measure / lack of response ) obtaining valid data for those particular groups</strong>.</li>
+</ul>
+</li>
+<li><strong>Survivorship bias</strong>:<ul>
+<li>This happens when we only select the "surviving" objects to be included in the dataset, neglecting those that fell out of view.</li>
+<li>A concrete example could be: if we build a model that analyze the factors contributing to the profit margins of pharmaceutical companies, we will likely only have access largely to <strong>detailed financial records of the current companies in the market</strong>, <strong>not the ones that have closed down</strong>. However, those who close down could contain equally valuable information for us to build an accurate model.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

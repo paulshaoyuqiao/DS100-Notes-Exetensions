@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Data 100 Notes &amp; Extensions</title>
+  <meta name="description" content="Within our dataset, the most basic element is a single observation. In the simplest context, if an observation contains just one feature (one dimension), it ...">
+
+  <link rel="canonical" href="http://localhost:4000//content/data-collection/ce/summarize.html">
+  <link rel="alternate" type="application/rss+xml" title="Data 100 Notes & Extensions" href="http://localhost:4000//feed.xml">
+
+  <meta property="og:url"         content="http://localhost:4000//content/data-collection/ce/summarize.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Data 100 Notes &amp; Extensions" />
+<meta property="og:description" content="Within our dataset, the most basic element is a single observation. In the simplest context, if an observation contains just one feature (one dimension), it ..." />
+<meta property="og:image"       content="http://localhost:4000/images/logo/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "http://localhost:4000//content/data-collection/ce/summarize.html",
+  "headline": "Data 100 Notes &amp; Extensions",
+  "datePublished": "2019-12-29T14:31:51-05:00",
+  "dateModified": "2019-12-29T14:31:51-05:00",
+  "description": "Within our dataset, the most basic element is a single observation. In the simplest context, if an observation contains just one feature (one dimension), it ...",
+  "author": {
+    "@type": "Person",
+    "name": "Paul Shao"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:4000/",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://localhost:4000/",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<!-- (mostly) copied from nbconvert configuration -->
+<!-- https://github.com/jupyter/nbconvert/blob/master/nbconvert/templates/html/mathjax.tpl -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+    },
+    
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML' async></script>
+
+
+  <!-- DOM updating function -->
+  <script src="/assets/js/page/dom-update.js"></script>
+
+  <!-- Selectors for elements on the page -->
+  <script src="/assets/js/page/documentSelectors.js"></script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" async></script>
+  <script src="/assets/js/page/anchors.js" async></script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/assets/images/edit-button.svg" alt="Start thebelab interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlight:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+<script src="https://unpkg.com/thebelab@latest/lib/index.js" async></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+
+                // Clean up the language to make it work w/ CodeMirror and add it to the cell
+                dataLanguage = ""
+                dataLanguage = detectLanguage(dataLanguage);
+                codeCell.setAttribute('data-language', dataLanguage)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+
+            // Find any cells with an initialization tag and ask ThebeLab to run them when ready
+            var thebeInitCells = document.querySelectorAll('div.tag_thebelab-init');
+            thebeInitCells.forEach((cell) => {
+                console.log("Initializing ThebeLab with cell: " + cell.id);
+                cell.querySelector('.thebelab-run-button').click();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+
+// Helper function to munge the language name
+var detectLanguage = (language) => {
+    if (language.indexOf('python') > -1) {
+        language = "python";
+    }
+    return language;
+}
+</script>
+
+
+
+  <!-- Load the auto-generating TOC (non-async otherwise the TOC won't load w/ turbolinks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.8.1/tocbot.min.js" async></script>
+  <script src="/assets/js/page/tocbot.js"></script>
+
+  <!-- Google analytics -->
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '');
+</script>
+
+
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script>
+
+  <!-- Load custom website scripts -->
+  <script src="/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js" async></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+
+  <!-- Load JS that depends on site variables -->
+  <script src="/assets/js/page/copy-button.js" async></script>
+
+  <!-- Hide cell code -->
+  <script src="/assets/js/page/hide-cell.js" async></script>
+
+  <!-- Printing the screen -->
+  <!-- Include nbinteract for interactive widgets -->
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" async></script>
+<script>
+printContent = () => {
+    // MathJax displays a second version of any math for assistive devices etc.
+    // This prevents double-rendering in the PDF output.
+    var ignoreAssistList = [];
+    assistives = document.querySelectorAll('.MathJax_Display span.MJX_Assistive_MathML').forEach((element, index) => {
+        var thisId = 'MathJax-assistive-' + index.toString();
+        element.setAttribute('id', thisId);
+        ignoreAssistList.push(thisId)
+    });
+
+    // Print the actual content object
+    printJS({
+        printable: 'textbook_content',
+        type: 'html',
+        css: "/assets/css/styles.css",
+        style: "#textbook_content {padding-top: 40px};",
+        scanStyles: false,
+        targetStyles: ["*"],
+        ignoreElements: ignoreAssistList,
+        documentTitle: "Made with Jupyter Book"
+    })
+};
+
+initPrint = () => {
+    document.querySelector('#interact-button-print').addEventListener('click', printContent)
+}
+
+initFunction(initPrint)
+</script>
+
+</head>
+
+  <body>
+    <!-- Include the ThebeLab config so it gets reloaded on each page -->
+    <script type="text/x-thebe-config">{
+    requestKernel: true,
+    binderOptions: {
+    repo: "YOUR-ORG/YOUR-REPO",
+    ref: "gh-pages",
+    },
+    codeMirrorConfig: {
+    theme: "abcdef",
+    mode: "python"
+    },
+    kernelOptions: {
+    kernelName: "python3",
+    path: ""
+    }
+}
+</script>
+
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://jupyterbook.org/"><img src="/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">Data 100 Notes & Extensions</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/intro">
+        <a class="c-sidebar__entry"
+          href="/intro.html"
+        >
+          
+          Home
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/ds-lifecycle/ds-lifecycle">
+        <a class="c-sidebar__entry"
+          href="/ds-lifecycle/ds-lifecycle.html"
+        >
+          
+            1.
+          
+          Overview
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/core">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/core.html"
+              >
+                
+                  1.1
+                
+                At the Core of the Data Science Lifecycle...
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/pitfalls">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/pitfalls.html"
+              >
+                
+                  1.2
+                
+                Present-day Challenges in Data Science
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/bias">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/bias.html"
+              >
+                
+                  1.3
+                
+                Biases and How to Avoid Them
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/hce">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/hce.html"
+              >
+                
+                  1.4
+                
+                Human Context Ethics (HCE) in Data Science (Under Construction)
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/data-collection/main">
+        <a class="c-sidebar__entry"
+          href="/data-collection/main.html"
+        >
+          
+            2.
+          
+          Data Collection
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/collect-extract">
+              <a class="c-sidebar__entry"
+                href="/data-collection/collect-extract.html"
+              >
+                
+                  2.1
+                
+                Collecting and Extracting Data
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/summarize">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/summarize.html"
+              >
+                
+                  2.2
+                
+                Summarizing Data - A Statistical and Probabilistic Perspective
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/sampling-methods">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/sampling-methods.html"
+              >
+                
+                  2.3
+                
+                Sampling Methods
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/srs">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/srs.html"
+              >
+                
+                  2.4
+                
+                Simple Random Sampling
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</nav>
+
+      
+      <div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button
+      id="js-sidebar-toggle"
+      class="hamburger hamburger--arrowalt is-active"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="buttons">
+<div class="download-buttons-dropdown">
+    <button id="dropdown-button-trigger" class="interact-button"><img src="/assets/images/download-solid.svg" alt="Download" /></button>
+    <div class="download-buttons">
+        
+        <a id="interact-button-print"><button id="interact-button-download" class="interact-button">.pdf</button></a>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title"><img src="/assets/images/list-solid.svg" alt="Search" />   On this page</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="/search.html" class="topbar-right-button" id="search-button">
+    <img src="/assets/images/search-solid.svg" alt="Search" />
+  </a>
+</div>
+
+      <main class="c-textbook__page" tabindex="-1">
+            <div class="c-textbook__content" id="textbook_content">
+              <p>Within our dataset, the most basic element is a single observation. In the simplest context, if an observation contains just one feature (one dimension), it is simply a number.</p>
+
+<p>Usually, we can readily have data come in a list of numbers (when the list is very long, we usually call it <em>a stream of numbers</em> instead). Throughout this section and the book, we will see that even for raw data with much more complex forms, such as images and audio files, we are still able to reduce and convert them to a set of numerical observations. In those cases though, each observation likely will have more than one feature.</p>
+
+<p>For simplicity and generality of notation, we will work primarily with a list of $n$ numerical samples (one-dimensional samples, $x_i \in \mathbb{R}$, $i = 1, 2, \dots, n$): <script type="math/tex">X = [x_1, x_2, \dots, x_n ]</script>
+In statistics, any numerical quantity $s = f(X)$ that can be calculated from the sampling dataset $X$ is called a <strong>summary statistic</strong>.</p>
+
+<h1 id="measures-of-location-mean-and-median">Measures of Location: Mean and Median</h1>
+
+<p>A measure of location is a statistic that represents the center of the sample. One such measure is the <strong>sample mean</strong>, which is the <strong>average of the sample</strong>:
+<script type="math/tex">\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{x_1 + x_2 + \dots + x_n}{n}.</script></p>
+<h2 id="main-drawbacks-of-the-mean">Main Drawbacks of the Mean</h2>
+
+<p>The main drawback of the mean is that it is <strong>sensitive to outliers</strong>. We can interpret an outlier as an observation $x’$ that is <em>far away</em> from other observations within the sampling dataset.</p>
+
+<p>There could be various causes of an outlier. The <strong>intrinsic variability of the data</strong> (for example, in a dataset detailing an American’s amount of wealth, Bill Gates will be an outlier toward the far right of the distribution) and <strong>measurement error</strong> are two common factors that lead to outliers.</p>
+
+<p>A particularly large or small outlier can move the mean considerably in the positive or negative direction correspondingly as well. As we can see from how the mean is calculated above, <strong>each sample is contributing EQUALLY to the mean</strong> (which might introduce bias as well to how the true population is actually represented).</p>
+
+<h2 id="a-more-robust-measurement-median">A More Robust Measurement: Median</h2>
+
+<p>Another measure of location that is more robust to outliers is the <strong>median</strong>. The median is the data point that <strong>divides the sampling dataset in equal halves</strong>.</p>
+
+<p>To calculate the median, we also need to sort the data first as well. Suppose the sampling dataset $X$ is sorted in <strong>increasing order</strong> such that:
+<script type="math/tex">x_1 \leq x_2 \leq \dots \leq x_n</script>
+We can define the median as follows:
+<script type="math/tex">% <![CDATA[
+\tilde{x} = 
+\left\{
+    \begin{matrix}
+        x_{\frac{n+1}{2}} & \text{if } n \text{ is odd},\\ 
+        \frac{1}{2}(x_{\frac{n}{2}} + x_{\frac{n}{2} + 1}) & \text{if } n \text{ is even}.
+    \end{matrix}
+\right. %]]></script>
+Due to the nature of median requiring the data to be sorted first, we also call median an <strong>order statistic</strong>.</p>
+
+<h2 id="main-drawbacks-of-the-median">Main Drawbacks of the Median</h2>
+
+<p>The main drawback of the median is exactly the opposite of that of the mean: <strong>it is too insensitive to the change in the sample values.</strong></p>
+
+<p>For example, consider a sample dataset of $n$ values, where $n = 2k-1$ (there is an odd number of values in total). In this case, the median is $\tilde{x} = x_k$. Now, if we arbitrarily multiply the right half of the sorted sample dataset by $10^9$ (this means $x_{k+1}, x_{k+2}, \dots, x_n$ now become $10^9 x_{k+1}, 10^9 x_{k+2}, \dots, 10^9 x_n$), does that change the overall median of the dataset?</p>
+
+<p><strong>Unfortunately no</strong>, since the data still remains sorted, our median is still equal to $\tilde{x} = x_k$. This implies making the values of the right half of the sampling dataset <strong>arbitrarily large does not affect the median</strong>. The same applies to <strong>making the left half arbitrarily small</strong> as well.</p>
+
+<h1 id="measures-of-spread-variance-and-standard-deviation">Measures of Spread: Variance and Standard Deviation</h1>
+
+<p>A measure of spread usually gives an idea of <strong>how far an individual value $x_i$ vary from the center of the data</strong>. The simplest measure of spread is the <strong>range</strong>, which is simply the difference between the smallest and largest samples in the dataset,
+<script type="math/tex">r = x_{\max} - x_{\min}</script>
+As indicated by the formula above, the range $r$ is very sensitive by outliers.</p>
+
+<p>A more common measure of spread is the <strong>sample standard deviation</strong> $\sigma_X$:
+<script type="math/tex">\sigma_X = \sqrt{
+    \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+},</script>
+where $\bar{x}$ is the mean of the dataset.</p>
+
+<p>The variance, which is much easier to work with mathematically, is simply the standard deviation squared:
+<script type="math/tex">V_X = (\sigma_X)^2</script></p>
+<h2 id="biased-vs-unbiased-sample-variance">Biased v.s. Unbiased Sample Variance</h2>
+
+<p>As you might have seen in some other classes, there are 2 ways of defining sample standard deviation for a dataset of $n$ samples. We will be discussing the difference and usages of the two.</p>
+
+<p>The <strong>biased sample varaince</strong> has the more commonly-known formula as follows:
+<script type="math/tex">\sigma^2_{X, biased} = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2</script>
+It is used to compute an estimate of the population’s standard deviation $\sigma_{X, biased}$.</p>
+
+<p>The <strong>unbiased sample variance</strong> is an <strong>unbiased estimator of the population variance</strong> and has the following form:
+<script type="math/tex">\sigma^2_{X, unbiased} = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2</script>
+This estimator is unbiased if the variance exists and the sample values are <strong>drawn independently with replacement</strong>. When we take the square root of the unbiased sample variance, it gives us the <strong>corrected sample standard deviation</strong>.</p>
+
+<p>Now, why does the second formula above produce an <strong>unbiased estimator of the population variance</strong>? What does <strong>an unbiased estimator</strong> even mean in the first place? We will see that shortly in the section that follows.</p>
+
+<h1 id="a-probabilistic-perspective-random-variables">A Probabilistic Perspective: Random Variables</h1>
+
+<p>To introduce the notion of <em>an unbiased estimator</em>, we have to first talk about random variables.</p>
+
+<h2 id="lets-build-some-intuitions-first">Let’s build some intuitions first</h2>
+
+<p>For this section, we will be discussing primarily <strong>discrete random variables</strong>. Note that there are also <strong>continuous random variables</strong> as well, which we will discuss in later chapters (they work similarly to discrete random variables though, except on a continuous scale).</p>
+
+<h3 id="random-variables">Random Variables</h3>
+
+<p>A <strong>random variable is a numerical function defined on an outcome space</strong>. You can think of the outcome space as <strong>a collection of possible outcomes we can achieve for a certain event</strong>. For example, if I toss a coin, I can define my outcome space as the set $X$, where $X = { H, T }$ ($H$ is for head up, $T$ is for tail up). A more concrete way of putting this is that it is a variable that can <strong>take on a collection of possible values as numerical outcomes for a random event</strong>.</p>
+
+<h3 id="probability-distribution">Probability Distribution</h3>
+
+<p>The probability distribution of a random variable includes <strong>all possible values the random variable can take on along with their probabilities</strong> (the chance that the random variable takes on that value). There are many ways we can represent the probability distribution of a random variable, some common ways include:</p>
+
+<ul>
+  <li>A probability distribution table, where we enumerate all possibilities (usually the
+value the random variable + the probability that happens) <strong>row by row</strong>.</li>
+  <li>A <strong>histogram</strong> visualizing the distribution, where the $x$ axis stands for the values the random variable takes on, and the $y$ axis maps to the corresponding probability.</li>
+</ul>
+
+<p>For example, a probability distribution table summarizing the random variable $X$ for the random event of tossing a fair coin and checking which side it lands on is as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>$x$</th>
+      <th style="text-align: center">$P(X = x)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$H$</td>
+      <td style="text-align: center">$\frac{1}{2}$</td>
+    </tr>
+    <tr>
+      <td>$T$</td>
+      <td style="text-align: center">$\frac{1}{2}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="expectation-expected-value">Expectation (Expected Value)</h2>
+
+<h3 id="definition-and-example">Definition and Example</h3>
+
+<p>The expected value of a random variable $X$, denoted by $E[X]$, represents the average of the possible values $X$ can take on weighted by their probabilities. Again, it gives us a notion of where the ”center” of the probability distribution lies if we plot that out for $X$.</p>
+
+<p>For all possible values of $x$ that the random variable $X$ can take on:
+<script type="math/tex">E[X] = \sum_{\text{all } x's} x \cdot P(X = x)</script>
+For example, if I have the value of a regular die after rolling as a random variable $X$, the expected value of $X$ can be calculated as the sum of all the possible values the die can have multiplied (or weighted) by the chance of us getting that particular value.</p>
+
+<p>More detailedly, we can treat <strong>the event of rolling a regular die and checking the number that is facing up</strong> as a random variable $X$. $X$ takes on the following probability distribution</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>$x$</th>
+      <th style="text-align: center">$P(X = x)$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$1$</td>
+      <td style="text-align: center">$\frac{1}{6}$</td>
+    </tr>
+    <tr>
+      <td>$2$</td>
+      <td style="text-align: center">$\frac{1}{6}$</td>
+    </tr>
+    <tr>
+      <td>$3$</td>
+      <td style="text-align: center">$\frac{1}{6}$</td>
+    </tr>
+    <tr>
+      <td>$4$</td>
+      <td style="text-align: center">$\frac{1}{6}$</td>
+    </tr>
+    <tr>
+      <td>$5$</td>
+      <td style="text-align: center">$\frac{1}{6}$</td>
+    </tr>
+    <tr>
+      <td>$6$</td>
+      <td style="text-align: center">$\frac{1}{6}$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The expected value of $X$ is equal to:
+<script type="math/tex">E[X] = \sum_{x=1}^6 x \cdot P(X = x)</script>
+Note that $P(X=x)$ is the same for all $x$’s, we can factor that probability outside the sumamtion:
+<script type="math/tex">E[X] = P(X=x) \sum_{x=1}^6 x = \frac{1}{6}(1+2+3+4+5+6) = \frac{21}{6} = 3.5.</script></p>
+<h3 id="properties-of-expected-values">Properties of Expected Values</h3>
+
+<p>Here are a few common arithmetic properties of expectations that are helpful when dealing with a transformed/augmented dataset. For random variables $X, Y$, and a real-valued scalar $a$:</p>
+
+<ul>
+  <li><strong>Non-negativity</strong>: if $X \geq 0$, then $E[X] \geq 0$.</li>
+  <li><strong>Linearity of Expectation</strong>:
+    <ul>
+      <li>$E[X+Y] = E[X] + E[Y].$</li>
+      <li>$E[aX] = aE[X].$</li>
+    </ul>
+  </li>
+  <li><strong>Independence</strong>:
+    <ul>
+      <li>If $X$ and $Y$ are <strong>mutually independent of each other</strong>:
+        <ul>
+          <li>$E[XY] = E[X]E[Y].$</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Non-degeneracy</strong>:
+    <ul>
+      <li>If $E[X] = 0$, then it must be true that $X = 0$.</li>
+    </ul>
+  </li>
+  <li><strong>Expected Value of a Constant</strong>:
+    <ul>
+      <li>$E[a] = a.$</li>
+    </ul>
+  </li>
+  <li><strong>Expected Value of Functions of a Random Variable</strong>
+    <ul>
+      <li>Suppose the random variable $Y = f(X)$, where $f$ is a function applied on every value $X$ can take on. More precisely, $Y$ has the probability distribution: <script type="math/tex">p_Y = \{ (f(x_1), P(Y = x_1)), \dots, (f(x_n), P(Y = x_n))\},</script> <script type="math/tex">E[Y] = E[f(X)] = \sum_{i=1}^n f(x_i) P(X = x_i).</script></li>
+    </ul>
+  </li>
+</ul>
+
+<p>An illustration of the last property (expected value of functions of a random variable) is as follows. Consider $X$ again as the random variable representing tossing a regular die and checking the number facing up, and let $Y$ be another random variable such that $Y = f(X)$, where $f(\omega) = \omega^2$ for all $\omega$ in the outcome space of $X$. We have:
+<script type="math/tex">E[Y] =  E[f(X)] = \sum_{i=1}^n f(x_i)^2 P(X=x_i) = \sum_{i=1}^6 (x_i)^2 P(X=x_i)</script>
+Simplifying further, this gives us:
+<script type="math/tex">E[Y] = \frac{1^2 + 2^2 + 3^2 +4^2 +5^2 +6^2}{6} = \frac{91}{6}</script></p>
+
+<h2 id="variance">Variance</h2>
+
+<h2 id="definition-and-example-1">Definition and Example</h2>
+
+<p>Variance is the expectation of the squared deviation of a random variable from its mean. Informally, it measures how far a set of (random) numbers are spread out from their average value.</p>
+
+<p>The variance is defined as follows:
+<script type="math/tex">Var[X] = E[(X - \mu)^2], \:\: \mu = E[X]</script>
+There is also a more straightforward computational formula for the variance (we can derive upon expanding the inside of the expectation and using some of the previous properties of expectations we have mentioned above):
+<script type="math/tex">Var[X] = E[X^2] - (E[X])^2</script></p>
+
+<p>Here’s the derivation for the computational formula above:
+<script type="math/tex">% <![CDATA[
+\begin{aligned}
+    Var[X] &= E[(X-\mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - E[2\mu X] + E[\mu^2] \\
+           &= E[X^2] - 2\mu E[X] + \mu^2 = E[X^2] - 2\mu^2 + \mu^2 \\
+           &= E[X^2] - \mu^2 \\
+           &= E[X^2] - (E[X])^2
+\end{aligned} %]]></script>
+Let’s revisit the example of rolling the die. Let $X$ be the random variable of rolling a regular die and checking the number facing up, we have:
+<script type="math/tex">Var[X] = E[X^2] - (E[X])^2 = \frac{91}{6} - (\frac{21}{6})^2 = \frac{35}{12}</script>
+We can also use the <strong>biased variance estimate</strong> formula from the statistical perspective:
+<script type="math/tex">Var[X] = \frac{1}{6}\sum_{i=1}^6 (x_i - \mu)^2 = \frac{\sum_{i=1}^6 (x_i - 3.5)^2}{6} = \frac{35}{12}</script></p>
+<h3 id="properties-of-variance">Properties of Variance</h3>
+<p>Let $X$ be a random variable, and $c$ a real-valued scalar, we have:</p>
+<ul>
+  <li>$Var[cX] = c^2 Var[X].$</li>
+  <li>$Var[X + c] = Var[X].$</li>
+</ul>
+
+<p>In general, for two random variables $X$ and $Y$, $Var[X+Y] \neq Var[X] + Var[Y]$.</p>
+
+<h1 id="unbiased-estimator">Unbiased Estimator</h1>
+
+<p>Now that we have talked about both the statistical and probabilistic perspectives of summarizing data, let’s return to the question we posed in the earlier section about the unbiased estimator of the population variance.</p>
+
+<h2 id="whats-the-bias-of-an-estimator">What’s the bias of an estimator?</h2>
+
+<p>Recall in the data science lifecycle, the 4th stage requires us to build a model that makes predictions/estimations which address the hypothesis/experiment we formulate. Let’s call this model an estimator. The bias of the estimator measures <strong>the difference between this estimator’s expected value and the true value of the parameter being estimated</strong>.</p>
+
+<h2 id="whats-an-unbiased-estimator">What’s an unbiased estimator?</h2>
+
+<p>Based on our definition above, an unbiased estimator is an estimator that has 0 bias. In other words, if <strong>the estimator’s expected value is equal to the true value of the parameter being estimated</strong>, the estimator is <strong>unbiased</strong>.</p>
+
+<h2 id="biased-vs-unbiased-estimators-of-population-variance">Biased v.s. Unbiased Estimators of Population Variance</h2>
+
+<p>Let’s revisit the example we mentioned earlier. Recall that <strong>the uncorrected sample variance</strong> for a sample dataset of $n$ samples is defined as:
+<script type="math/tex">\sigma^2_{X, biased} = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2</script>.
+Assuming our data sampling process is random and even, we can treat all $n$ samples $x_1, x_2, \dots, x_n$ as independent and identically distributed (i.i.d) random variables $X_1, X_2, \dots, X_n$ with expected value $\mu$ and variance $\sigma^2$.</p>
+
+<p>We can see that the <strong>true variance of the sample dataset</strong> is $\frac{1}{n}\cdot n\sigma^2 = \sigma^2$.</p>
+
+<p>To check that <strong>the uncorrected sample variance</strong> is a biased estimator of $\sigma^2$, we evaluate:
+<script type="math/tex">% <![CDATA[
+\begin{aligned}
+    E[\sigma^2_{X, biased}] &= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^2\right] \\
+     &=  E\left[\frac{1}{n}\sum_{i=1}^n \left( (X_i - \mu)^2 + 2(\bar{X} - \mu)(X_i - \mu) + (\bar{X} - \mu)^2 \right)\right] \\
+    &= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 + \frac{2}{n}(\bar{X} - \mu)\sum_{i=1}^n (X_i - \mu) + (\bar{X} - \mu)^2 \right] \\
+    &= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 + \frac{2}{n}(\bar{X} - \mu)\cdot n \cdot (X_i - \mu) + (\bar{X} - \mu)^2 \right] \\
+    &= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 + 2(\bar{X} - \mu)^2 + (\bar{X} - \mu)^2 \right] \\
+    &= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 \right] + E\left[(\bar{X} - \mu)^2 \right] \\
+    &= \sigma^2 - E\left[(\bar{X} - \mu)^2\right] \\
+    &= \left( 1 - \frac{1}{n} \right) \sigma^2 < \sigma^2.
+\end{aligned} %]]></script>
+Hence, we can see that $E[\sigma^2_{X, biased}] \neq sigma^2$.</p>
+
+<p>On the other hand, we also have the <strong>the corrected sample variance</strong>:
+<script type="math/tex">\sigma^2_{X, unbiased} = \frac{1}{n - 1}\sum_{i=1}^n (x_i - \bar{x})^2</script>.
+Again, Let’s evaluate the expected value of the corrected sample variance:
+<script type="math/tex">% <![CDATA[
+\begin{aligned}
+    E[\sigma^2_{X, unbiased}] &= \frac{n}{n-1}E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^2\right] \\
+    &= \frac{n}{n-1}\left(1-\frac{1}{n}\right)\sigma^2 \\
+    &= \sigma^2.
+\end{aligned} %]]></script></p>
+
+<p>Hence, we can see that the <strong>corrected sample variance is an unbiased estimator of the population variance</strong>, $\sigma^2$.</p>
+
+            </div>
+            <div class="c-textbook__footer" id="textbook_footer">
+              
+<nav class="c-page__nav">
+  
+
+  
+</nav>
+
+              <footer>
+  <p class="footer">This page was created by <a href="https://github.com/jupyter/jupyter-book/graphs/contributors">The Jupyter Book Community</a></p>
+</footer>
+
+            </div>
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

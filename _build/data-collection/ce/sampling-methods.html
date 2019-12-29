@@ -1,0 +1,82 @@
+---
+title: |-
+  Sampling Methods
+pagenum: 9
+prev_page:
+  url: /data-collection/ce/summarize.html
+next_page:
+  url: /data-collection/ce/srs.html
+suffix: .md
+search: sampling sample cluster population random members stratified every groups example n stage group strata into samples within not simple member equal illustration faculty elgin edu dkernler statistics ch images gif another method chosen proportionate allocation frac selected survey elements data few methods ways srs overall consists randomly heres want even common total m f stratum estimates different usually easily select included section good bad chance wants names students guarantees fraction individuals male female where males females proportion times standard deviation advantages measurements error become region ensure made sub disadvantages flights available produce greater between clusters similarity selecting systematic starting point
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Sampling Methods</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the data collection stage of the lifecycle, we rely on a few sampling methods to select members from the population to be included in the study.</p>
+<p>In this section, we will go over some good and bad ways to build our sampling dataset.</p>
+<h1 id="Good-Ways-to-sample">Good Ways to sample<a class="anchor-link" href="#Good-Ways-to-sample"> </a></h1><h2 id="Simple-Random-Sample-(SRS)">Simple Random Sample (SRS)<a class="anchor-link" href="#Simple-Random-Sample-(SRS)"> </a></h2><p><strong>Every member and set of members has an equal chance of being included in the sample</strong>. Usuallly we utilize a random number generator or some other chance process to retrieve a simple random sample from the population.</p>
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/srs.gif" alt="illustration"></p>
+<p>Another intuitive example would be if a group of people wants to sample from all the members, putting people's names in a box and choosing without looking is resembling of the Simple Random Sample approach.</p>
+<h2 id="Stratified-Random-Sample">Stratified Random Sample<a class="anchor-link" href="#Stratified-Random-Sample"> </a></h2><p>In this sampling method, the population is first split into groups. The overall sample consists of some members from every group. The members from each group are chosen randomly.</p>
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/strata-sample.gif" alt="illustration"></p>
+<p>Here's another example: the ASUC surveys 100 undergraduate students by getting random samples of 25 freshmen, 25 sophomores, 25 juniors, and 25 seniors.</p>
+<p>A stratified sample guarantees that members from each group will be represented in the sample, so this sampling method is <strong>suited</strong> for when we want an even representation of members from every group.</p>
+<h3 id="Common-Stratified-Sampling-Strategies">Common Stratified Sampling Strategies<a class="anchor-link" href="#Common-Stratified-Sampling-Strategies"> </a></h3><h4 id="Proportionate-Allocation">Proportionate Allocation<a class="anchor-link" href="#Proportionate-Allocation"> </a></h4><p>Proportionate allocation uses a <strong>sampling fraction</strong> in each of the strata that is proportional to that of the total population.</p>
+<p>For example, if the population consists of $N$ total individuals, $M$ of which are male and $F$ are female (where $M+F = N$), then maintaining the relative size of the two samples ($n_1 = \frac{M}{N}$ males, $n_2 = \frac{F}{N}$ females) should reflect this proportion.</p>
+<p>Numerically, if let $N = 100$, $M = 40$, $F=60$, then if we use proportionate allocation for stratified sampling, and assume we sample a total of 10 individuals. We want to make sure we sample $\frac{40}{100} \times 10 = 4$ males for the male stratum, and $\frac{60}{100} \times 10 = 6$ females for the female stratum.</p>
+<h4 id="Optimum-Allocation">Optimum Allocation<a class="anchor-link" href="#Optimum-Allocation"> </a></h4><p>The sampling fraction of each stratum is proportionate to both the proportion and <strong>the standard deviation of the distribution of the variable</strong>. Larger samples are taken in the strata with <strong>the greatest variability</strong> to <strong>generate the least possible overall sampling variance</strong>.</p>
+<h3 id="Advantages-of-Stratified-Sampling">Advantages of Stratified Sampling<a class="anchor-link" href="#Advantages-of-Stratified-Sampling"> </a></h3><p>We generally prefer stratified sampling to simple random sampling when:</p>
+<ol>
+<li>measurements within strata have <strong>lower standard deviation</strong>; stratification gives smaller error in estimation.</li>
+<li>measurements become more manageable/cheaper when the population is grouped into strata.</li>
+<li>we want to have <strong>estimates of population parameters</strong> for groups within the population.</li>
+</ol>
+<p>If the population density varies greatly within a region, stratified sampling will ensure that estimates can be made with equal accuracy in different parts of the region, and that comparisons of sub-regions can be made with equal statistical power.</p>
+<h3 id="Disadvantages-of-Stratified-Sampling">Disadvantages of Stratified Sampling<a class="anchor-link" href="#Disadvantages-of-Stratified-Sampling"> </a></h3><p>Stratified Sampling fails when the population cannot be partitioned into <strong>disjoint subgroups</strong>.</p>
+<p>One thing to be cautious about is that combining sub-strata to ensure adequate and even numbers is not always desirable as it can lead to <strong>Simpson's paradox</strong>, where trends that <strong>actually exist in different groups of data disappear or even reverse when the groups are combined</strong>.</p>
+<h2 id="Cluster-Random-Sample">Cluster Random Sample<a class="anchor-link" href="#Cluster-Random-Sample"> </a></h2><p>Contrary to Stratified Sampling, in cluster sampling, the population is first divided into groups. The overall sample consists of every member from some of the groups. THe groups are then selected at random.</p>
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/cluster-sample.gif" alt="illustration"></p>
+<p>Here's another example: an airline company wants to survey its customers one day, so they randomly select 5 flights that day and survey every passenger on those flights.</p>
+<p>A cluster sample guarantees that every member from the chosen groups is surveyed. It performs well when each group reflects the population as a whole.</p>
+<h3 id="Advantages-of-Cluster-Sampling">Advantages of Cluster Sampling<a class="anchor-link" href="#Advantages-of-Cluster-Sampling"> </a></h3><p>Since cluster sampling samples all the members within a few randomly chosen cluster, it is usually cheapter than other sampling methods.</p>
+<p>Practically speaking though, we resort to cluster sampling only when <strong>the sampling frame of all elements is not available</strong>.</p>
+<h3 id="Disadvantages-of-Cluster-Sampling">Disadvantages of Cluster Sampling<a class="anchor-link" href="#Disadvantages-of-Cluster-Sampling"> </a></h3><ol>
+<li>Cluster sampling tends to produce higher sampling error. In particular, when we have greater differences (<strong>hetreogeneity</strong>) between clusters (<strong>intercluster difference</strong>) and greater similarity (<strong>homogeneity</strong>) between elements within a cluster (<strong>intracluster similarity</strong>), cluster sampling will become a lot less accurate. </li>
+<li>As convenient and economical as cluster sampling is, it is usually more sophisticated and requires more attention to analyze and interpret the collected data to approximate the actual true population.</li>
+</ol>
+<h3 id="Two-Stage-Cluster-Sampling">Two-Stage Cluster Sampling<a class="anchor-link" href="#Two-Stage-Cluster-Sampling"> </a></h3><p>The first disadvantage that we have seen in the previous section leads us to an augmented cluster sampling method: two-stage cluster sampling.</p>
+<p>As a variant of multistatge sampling, two-stage cluster sampling works by:</p>
+<ol>
+<li>selecting cluster samples</li>
+<li>selecting a sample of elements from every sampled cluster (usually using SRS)</li>
+</ol>
+<p>Note that in the second stage, the number of elements selected from different clusters are <strong>not necessarily equal</strong>.</p>
+<p>The two-stage cluster sampling method aims at minimizing survey costs and at the same time <strong>controlling the uncertainty related to estimates of interest</strong>.</p>
+<h2 id="Systematic-Random-Sample">Systematic Random Sample<a class="anchor-link" href="#Systematic-Random-Sample"> </a></h2><p>In systematic sampling, members of the population are sorted in some order. A starting point is then selected at random, and every $i$th member is chosen to be in the sample.</p>
+<p><img src="https://faculty.elgin.edu/dkernler/statistics/ch01/images/sys-sample2.gif" alt="illustration"></p>
+<p>Here's another example: a principal takes an alphabetized list of student names and picks a random starting point. Every 20th student is selected to take a survey.</p>
+<h1 id="Bad-Ways-to-sample">Bad Ways to sample<a class="anchor-link" href="#Bad-Ways-to-sample"> </a></h1><p>Here are a few common sampling methods that could easily result in <strong>selection bias</strong>.</p>
+<h2 id="Convenience-sample">Convenience sample<a class="anchor-link" href="#Convenience-sample"> </a></h2><p>We choose a sample that is readily available in some non-random way.</p>
+<p>For example, we poll students as they walk into the entrance of a lecture hall on campus.</p>
+<p>It easily introduces biases as the location and time of day and other factors can produce a biased sample of people.</p>
+<h2 id="Voluntary-Response-Sample">Voluntary Response Sample<a class="anchor-link" href="#Voluntary-Response-Sample"> </a></h2><p>We put out a request for members of a population to join the sample, and people decide whether or not to be in the sample.</p>
+<p>A very common example is sending out a Google Form and asking people to fill it out.</p>
+<p>It easily introduces biases as the people might either not respond (<strong>non-response bias</strong>) or for the ones who do, they might tend to <strong>have similarly strong opinions compared to the rest of the population</strong>.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

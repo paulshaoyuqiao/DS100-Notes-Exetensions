@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Search the site</title>
+  <meta name="description" content="        ">
+
+  <link rel="canonical" href="http://localhost:4000//search">
+  <link rel="alternate" type="application/rss+xml" title="Data 100 Notes & Extensions" href="http://localhost:4000//feed.xml">
+
+  <meta property="og:url"         content="http://localhost:4000//search" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Search the site" />
+<meta property="og:description" content="        " />
+<meta property="og:image"       content="http://localhost:4000/images/logo/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "http://localhost:4000//search",
+  "headline": "Search the site",
+  "datePublished": "2019-12-29T14:31:51-05:00",
+  "dateModified": "2019-12-29T14:31:51-05:00",
+  "description": "        ",
+  "author": {
+    "@type": "Person",
+    "name": "Paul Shao"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:4000/",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://localhost:4000/",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<!-- (mostly) copied from nbconvert configuration -->
+<!-- https://github.com/jupyter/nbconvert/blob/master/nbconvert/templates/html/mathjax.tpl -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+    },
+    
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML' async></script>
+
+
+  <!-- DOM updating function -->
+  <script src="/assets/js/page/dom-update.js"></script>
+
+  <!-- Selectors for elements on the page -->
+  <script src="/assets/js/page/documentSelectors.js"></script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" async></script>
+  <script src="/assets/js/page/anchors.js" async></script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/assets/images/edit-button.svg" alt="Start thebelab interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlight:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+<script src="https://unpkg.com/thebelab@latest/lib/index.js" async></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+
+                // Clean up the language to make it work w/ CodeMirror and add it to the cell
+                dataLanguage = ""
+                dataLanguage = detectLanguage(dataLanguage);
+                codeCell.setAttribute('data-language', dataLanguage)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+
+            // Find any cells with an initialization tag and ask ThebeLab to run them when ready
+            var thebeInitCells = document.querySelectorAll('div.tag_thebelab-init');
+            thebeInitCells.forEach((cell) => {
+                console.log("Initializing ThebeLab with cell: " + cell.id);
+                cell.querySelector('.thebelab-run-button').click();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+
+// Helper function to munge the language name
+var detectLanguage = (language) => {
+    if (language.indexOf('python') > -1) {
+        language = "python";
+    }
+    return language;
+}
+</script>
+
+
+
+  <!-- Load the auto-generating TOC (non-async otherwise the TOC won't load w/ turbolinks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.8.1/tocbot.min.js" async></script>
+  <script src="/assets/js/page/tocbot.js"></script>
+
+  <!-- Google analytics -->
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '');
+</script>
+
+
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script>
+
+  <!-- Load custom website scripts -->
+  <script src="/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js" async></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+
+  <!-- Load JS that depends on site variables -->
+  <script src="/assets/js/page/copy-button.js" async></script>
+
+  <!-- Hide cell code -->
+  <script src="/assets/js/page/hide-cell.js" async></script>
+
+  <!-- Printing the screen -->
+  <!-- Include nbinteract for interactive widgets -->
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" async></script>
+<script>
+printContent = () => {
+    // MathJax displays a second version of any math for assistive devices etc.
+    // This prevents double-rendering in the PDF output.
+    var ignoreAssistList = [];
+    assistives = document.querySelectorAll('.MathJax_Display span.MJX_Assistive_MathML').forEach((element, index) => {
+        var thisId = 'MathJax-assistive-' + index.toString();
+        element.setAttribute('id', thisId);
+        ignoreAssistList.push(thisId)
+    });
+
+    // Print the actual content object
+    printJS({
+        printable: 'textbook_content',
+        type: 'html',
+        css: "/assets/css/styles.css",
+        style: "#textbook_content {padding-top: 40px};",
+        scanStyles: false,
+        targetStyles: ["*"],
+        ignoreElements: ignoreAssistList,
+        documentTitle: "Made with Jupyter Book"
+    })
+};
+
+initPrint = () => {
+    document.querySelector('#interact-button-print').addEventListener('click', printContent)
+}
+
+initFunction(initPrint)
+</script>
+
+</head>
+
+  <body>
+    <!-- Include the ThebeLab config so it gets reloaded on each page -->
+    <script type="text/x-thebe-config">{
+    requestKernel: true,
+    binderOptions: {
+    repo: "YOUR-ORG/YOUR-REPO",
+    ref: "gh-pages",
+    },
+    codeMirrorConfig: {
+    theme: "abcdef",
+    mode: "python"
+    },
+    kernelOptions: {
+    kernelName: "python3",
+    path: ""
+    }
+}
+</script>
+
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://jupyterbook.org/"><img src="/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">Data 100 Notes & Extensions</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/intro">
+        <a class="c-sidebar__entry"
+          href="/intro.html"
+        >
+          
+          Home
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/ds-lifecycle/ds-lifecycle">
+        <a class="c-sidebar__entry"
+          href="/ds-lifecycle/ds-lifecycle.html"
+        >
+          
+            1.
+          
+          Overview
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/core">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/core.html"
+              >
+                
+                  1.1
+                
+                At the Core of the Data Science Lifecycle...
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/pitfalls">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/pitfalls.html"
+              >
+                
+                  1.2
+                
+                Present-day Challenges in Data Science
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/bias">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/bias.html"
+              >
+                
+                  1.3
+                
+                Biases and How to Avoid Them
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/ds-lifecycle/hce">
+              <a class="c-sidebar__entry"
+                href="/ds-lifecycle/hce.html"
+              >
+                
+                  1.4
+                
+                Human Context Ethics (HCE) in Data Science (Under Construction)
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/data-collection/main">
+        <a class="c-sidebar__entry"
+          href="/data-collection/main.html"
+        >
+          
+            2.
+          
+          Data Collection
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/collect-extract">
+              <a class="c-sidebar__entry"
+                href="/data-collection/collect-extract.html"
+              >
+                
+                  2.1
+                
+                Collecting and Extracting Data
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/summarize">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/summarize.html"
+              >
+                
+                  2.2
+                
+                Summarizing Data - A Statistical and Probabilistic Perspective
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/sampling-methods">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/sampling-methods.html"
+              >
+                
+                  2.3
+                
+                Sampling Methods
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/data-collection/ce/srs">
+              <a class="c-sidebar__entry"
+                href="/data-collection/ce/srs.html"
+              >
+                
+                  2.4
+                
+                Simple Random Sampling
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</nav>
+
+      
+      <div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button
+      id="js-sidebar-toggle"
+      class="hamburger hamburger--arrowalt is-active"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="buttons">
+<div class="download-buttons-dropdown">
+    <button id="dropdown-button-trigger" class="interact-button"><img src="/assets/images/download-solid.svg" alt="Download" /></button>
+    <div class="download-buttons">
+        
+        <a id="interact-button-print"><button id="interact-button-download" class="interact-button">.pdf</button></a>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title"><img src="/assets/images/list-solid.svg" alt="Search" />   On this page</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="/search.html" class="topbar-right-button" id="search-button">
+    <img src="/assets/images/search-solid.svg" alt="Search" />
+  </a>
+</div>
+
+      <main class="c-textbook__page" tabindex="-1">
+            <div class="c-textbook__content" id="textbook_content">
+              <div class="search-content__inner-wrap">
+    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
+    <div id="results" class="results"></div>
+</div>
+
+<script>
+    // Add the lunr store since we will now search it
+    var store = [{
+        "title": "Sampling Methods",
+        
+        "excerpt": "sampling sample cluster population random members stratified every groups example n stage group strata into samples within not simple member equal illustration faculty elgin edu dkernler statistics ch images gif another method chosen proportionate allocation frac selected survey elements data few methods ways srs overall consists randomly heres want even common total m f stratum estimates different usually easily select included section good bad chance wants names students guarantees fraction individuals male female where males females proportion times standard deviation advantages measurements error become region ensure made sub disadvantages flights available produce greater between clusters similarity selecting systematic starting point",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/data-collection/ce/sampling-methods.html",
+        "teaser":null},{
+        "title": "Simple Random Sampling",
+        
+        "excerpt": "n frac x sample bar var sigma xi random sum e variance sampling y mean cov replacement population mu variables aligned left right simple srs without j lets covariance independent xj us p xy units same total value variable probability begin end mux muy where case not information approx small sqrt chance mathematically equal v s our m distinct values dots derive since hence sections covariances into important following measure between obtain rewrite independence correlate distribution terms given neq observations fraction accuracy standard deviation every subset being obtaining particular text choose binom supppose contains pm suppose pi ni occurrences represent",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/data-collection/ce/srs.html",
+        "teaser":null},{
+        "title": "Summarizing Data - A Statistical and Probabilistic Perspective",
+        
+        "excerpt": "x n e frac random mu xi variance sum sample variable value bar sigma unbiased dataset right estimator y median left values expected var data f mean probability p distribution biased dots xn example variables where deviation samples sampling measure above population also follows standard formula take lets possible die aligned numerical well true text k spread us cdot our observation usually section even such measures main outliers outlier far common bias equal sorted begin end does gives corrected outcome space event checking expectation regular rolling properties simply list numbers still set work r s calculated statistic location center average",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/data-collection/ce/summarize.html",
+        "teaser":null},{
+        "title": "Collecting and Extracting Data",
+        
+        "excerpt": "sampling methods section data statistical seen previous collection cleaning process crucial challenging stage science lifecycle explore few mathematical justifications various estimation building our dataset also walk through existent python libraries implement divided into following subsections summarizing simple random population variance bootstrap method empirical risks risk minimization web technologies text processing",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/data-collection/collect-extract.html",
+        "teaser":null},{
+        "title": "Data Collection",
+        
+        "excerpt": "data collection",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/data-collection/main.html",
+        "teaser":null},{
+        "title": "Biases and How to Avoid Them",
+        
+        "excerpt": "bias sampling sample dataset samples model means our results those data collection probably others individual really factors measure ones because us different experiment selection participants actually participate non happens particular groups not access only build companies during process sometimes risk imposing gather precisely where among collected members lower intuitively randomly choose higher chance being chosen wonder realistic shouldnt unique theoretically yes practically speaking collect just characteristics observe cannot comprehensively cover every characteristic wont either dont address problems biased cause predict differently erroneously true population un even distribution within concerns fact arent aware falsely attribute phenomenon study infer something intrinsically wrong",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/ds-lifecycle/bias.html",
+        "teaser":null},{
+        "title": "At the Core of the Data Science Lifecycle...",
+        
+        "excerpt": "data our methods model dataset us usually proper science step lifecycle question process models field insights perspective problem acquiring cleaning analysis via portion technique allows cross follow series scientific gain into area repeatedly formulate need forming also background within once build quite statistical sampling various ways such population different exploratory eda used numerical visually discover form better experiments conclusions lastly features train performance highly disciplinary requiring dual lens computational inferential thinking scientist analyst generally allow increasingly studying applied last iteration helps motivate next primarily consists following steps formulating properly not only hypothesis experiment drawing observation utilize expertise researching having contextual",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/ds-lifecycle/core.html",
+        "teaser":null},{
+        "title": "Overview",
+        
+        "excerpt": "data science lifecycle section tools us complete studies introduction overview techniques class helps full workflow also take few interesting cases where proper improper methods significantly impacted process conclusion end should able understand answer following questions key components help present challenges sampling bias avoid context human ethics scientists analysts conduct promote impartial respectful researches",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/ds-lifecycle/ds-lifecycle.html",
+        "teaser":null},{
+        "title": "Human Context Ethics (HCE) in Data Science (Under Construction)",
+        
+        "excerpt": "human context ethics hce data science",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/ds-lifecycle/hce.html",
+        "teaser":null},{
+        "title": "Present-day Challenges in Data Science",
+        
+        "excerpt": "data us science neural networks field still years million scientists compared its computer significant challenges our few cleaning challenge accurate system obstacle huge allows precisely huffington post approximately world ancestors statistics booming remains increasing demand both market academia after much newer also seen motivate rethink refine techniques builds new tools overcome obstacles name nowadays where decade ago primary analysts facing today not dearth rather difficulty reducing large amount raw while retaining usefulness representation true population access perspective main analyzing summarizing dataset lies constantly accessing writing arent readily available hand memory section continuously improving hardware emergence distributed systems cloud get better",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/ds-lifecycle/pitfalls.html",
+        "teaser":null},{
+        "title": "Features and customization",
+        
+        "excerpt": "content textbook x jupyter markdown notebooks called book repository click chapter left section features short demonstration show general layout style textbooks built jekyll files page others generated scripts generatetextbook py script run contained folder books combination rendered into here begin sections sidebar demonstrates simple functionality while following chapters contain subset foundations data science inferentialthinking com nabla f frac ex ln quickstart shows couple ways add course headers next button below order read further",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/features/features.html",
+        "teaser":null},{
+        "title": "Markdown files",
+        
+        "excerpt": "markdown media content files file headers level heres images copied jekyll sidebar automatically page section third header adding relative movies gif giphy creating book kinds contain course jupyter notebooks contained folder referenced data toc yml front matter yaml added parse sidebars notice theres right screen wide enough generated present capture nd rd best designate characters beginning line here purely demonstrate rendered embedding reference external paths continue work point thats inside repository image site root c podroid png even embed references web example little com yojcaoczhslxvw included website built",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/features/markdown.html",
+        "teaser":null},{
+        "title": "Jupyter notebooks",
+        
+        "excerpt": "jupyter content notebooks code notebook also blocks book markdown original github com blob master jupyterbook minimal features ipynb only outputs math image output below well display python interactive page jekyll embed images html align textbooks example note before publishing remove cell generated map work create current contained folder repository means include export address etc into posts cool jpg add begin mbox mean la tex end sure escape dollar signs want keep site heres sample matplotlib above captured displayed removing web used still show here pandas dataframe again configure text uses modifying books config yml file even same material using ipyleaflet",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/features/notebooks.html",
+        "teaser":null},{
+        "title": "Home",
+        
+        "excerpt": "data analysis methods modeling learning regression component science course book linear clustering testing test notes extensions principles students sections provide means content summarizing sampling random variance method likelihood storage sql engineering basics update loss cross feature classification entropy vector unsupervised principle definiteness hi name paul shao currently lead ugsi uc berkeley upper div techniques compilation provided teaching discussion lab want short disclaimer substitute materials taught meant supplement additional perspectives wish explore around topics touched class structure divided into following overview lifecycle collection collecting extracting statistical simple population bootstrap web technologies text processing understanding normal approximation confidence intervals maximum estimates cleaning",
+        "categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/intro.html",
+        "teaser":null},]
+</script>
+            </div>
+            <div class="c-textbook__footer" id="textbook_footer">
+              
+<nav class="c-page__nav">
+  
+
+  
+</nav>
+
+              <footer>
+  <p class="footer">This page was created by <a href="https://github.com/jupyter/jupyter-book/graphs/contributors">The Jupyter Book Community</a></p>
+</footer>
+
+            </div>
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

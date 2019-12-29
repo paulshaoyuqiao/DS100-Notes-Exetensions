@@ -1,0 +1,245 @@
+---
+title: |-
+  Summarizing Data - A Statistical and Probabilistic Perspective
+pagenum: 8
+prev_page:
+  url: /data-collection/collect-extract.html
+next_page:
+  url: /data-collection/ce/sampling-methods.html
+suffix: .md
+search: x n e frac random mu xi variance sum sample variable value bar sigma unbiased dataset right estimator y median left values expected var data f mean probability p distribution biased dots xn example variables where deviation samples sampling measure above population also follows standard formula take lets possible die aligned numerical well true text k spread us cdot our observation usually section even such measures main outliers outlier far common bias equal sorted begin end does gives corrected outcome space event checking expectation regular rolling properties simply list numbers still set work r s calculated statistic location center average
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Summarizing Data - A Statistical and Probabilistic Perspective</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Within our dataset, the most basic element is a single observation. In the simplest context, if an observation contains just one feature (one dimension), it is simply a number.</p>
+<p>Usually, we can readily have data come in a list of numbers (when the list is very long, we usually call it <em>a stream of numbers</em> instead). Throughout this section and the book, we will see that even for raw data with much more complex forms, such as images and audio files, we are still able to reduce and convert them to a set of numerical observations. In those cases though, each observation likely will have more than one feature.</p>
+<p>For simplicity and generality of notation, we will work primarily with a list of $n$ numerical samples (one-dimensional samples, $x_i \in \mathbb{R}$, $i = 1, 2, \dots, n$): $$X = [x_1, x_2, \dots, x_n ]$$
+In statistics, any numerical quantity $s = f(X)$ that can be calculated from the sampling dataset $X$ is called a <strong>summary statistic</strong>.</p>
+<h1 id="Measures-of-Location:-Mean-and-Median">Measures of Location: Mean and Median<a class="anchor-link" href="#Measures-of-Location:-Mean-and-Median"> </a></h1><p>A measure of location is a statistic that represents the center of the sample. One such measure is the <strong>sample mean</strong>, which is the <strong>average of the sample</strong>:
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{x_1 + x_2 + \dots + x_n}{n}.
+$$</p>
+<h2 id="Main-Drawbacks-of-the-Mean">Main Drawbacks of the Mean<a class="anchor-link" href="#Main-Drawbacks-of-the-Mean"> </a></h2><p>The main drawback of the mean is that it is <strong>sensitive to outliers</strong>. We can interpret an outlier as an observation $x'$ that is <em>far away</em> from other observations within the sampling dataset.</p>
+<p>There could be various causes of an outlier. The <strong>intrinsic variability of the data</strong> (for example, in a dataset detailing an American's amount of wealth, Bill Gates will be an outlier toward the far right of the distribution) and <strong>measurement error</strong> are two common factors that lead to outliers.</p>
+<p>A particularly large or small outlier can move the mean considerably in the positive or negative direction correspondingly as well. As we can see from how the mean is calculated above, <strong>each sample is contributing EQUALLY to the mean</strong> (which might introduce bias as well to how the true population is actually represented).</p>
+<h2 id="A-More-Robust-Measurement:-Median">A More Robust Measurement: Median<a class="anchor-link" href="#A-More-Robust-Measurement:-Median"> </a></h2><p>Another measure of location that is more robust to outliers is the <strong>median</strong>. The median is the data point that <strong>divides the sampling dataset in equal halves</strong>.</p>
+<p>To calculate the median, we also need to sort the data first as well. Suppose the sampling dataset $X$ is sorted in <strong>increasing order</strong> such that:
+$$x_1 \leq x_2 \leq \dots \leq x_n$$
+We can define the median as follows:
+$$
+\tilde{x} = 
+\left\{
+    \begin{matrix}
+        x_{\frac{n+1}{2}} &amp; \text{if } n \text{ is odd},\\ 
+        \frac{1}{2}(x_{\frac{n}{2}} + x_{\frac{n}{2} + 1}) &amp; \text{if } n \text{ is even}.
+    \end{matrix}
+\right.
+$$
+Due to the nature of median requiring the data to be sorted first, we also call median an <strong>order statistic</strong>.</p>
+<h2 id="Main-Drawbacks-of-the-Median">Main Drawbacks of the Median<a class="anchor-link" href="#Main-Drawbacks-of-the-Median"> </a></h2><p>The main drawback of the median is exactly the opposite of that of the mean: <strong>it is too insensitive to the change in the sample values.</strong></p>
+<p>For example, consider a sample dataset of $n$ values, where $n = 2k-1$ (there is an odd number of values in total). In this case, the median is $\tilde{x} = x_k$. Now, if we arbitrarily multiply the right half of the sorted sample dataset by $10^9$ (this means $x_{k+1}, x_{k+2}, \dots, x_n$ now become $10^9 x_{k+1}, 10^9 x_{k+2}, \dots, 10^9 x_n$), does that change the overall median of the dataset?</p>
+<p><strong>Unfortunately no</strong>, since the data still remains sorted, our median is still equal to $\tilde{x} = x_k$. This implies making the values of the right half of the sampling dataset <strong>arbitrarily large does not affect the median</strong>. The same applies to <strong>making the left half arbitrarily small</strong> as well.</p>
+<h1 id="Measures-of-Spread:-Variance-and-Standard-Deviation">Measures of Spread: Variance and Standard Deviation<a class="anchor-link" href="#Measures-of-Spread:-Variance-and-Standard-Deviation"> </a></h1><p>A measure of spread usually gives an idea of <strong>how far an individual value $x_i$ vary from the center of the data</strong>. The simplest measure of spread is the <strong>range</strong>, which is simply the difference between the smallest and largest samples in the dataset,
+$$r = x_{\max} - x_{\min}$$
+As indicated by the formula above, the range $r$ is very sensitive by outliers.</p>
+<p>A more common measure of spread is the <strong>sample standard deviation</strong> $\sigma_X$:
+$$
+\sigma_X = \sqrt{
+    \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+},
+$$
+where $\bar{x}$ is the mean of the dataset.</p>
+<p>The variance, which is much easier to work with mathematically, is simply the standard deviation squared:
+$$V_X = (\sigma_X)^2$$</p>
+<h2 id="Biased-v.s.-Unbiased-Sample-Variance">Biased v.s. Unbiased Sample Variance<a class="anchor-link" href="#Biased-v.s.-Unbiased-Sample-Variance"> </a></h2><p>As you might have seen in some other classes, there are 2 ways of defining sample standard deviation for a dataset of $n$ samples. We will be discussing the difference and usages of the two.</p>
+<p>The <strong>biased sample varaince</strong> has the more commonly-known formula as follows:
+$$
+\sigma^2_{X, biased} = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+$$
+It is used to compute an estimate of the population's standard deviation $\sigma_{X, biased}$.</p>
+<p>The <strong>unbiased sample variance</strong> is an <strong>unbiased estimator of the population variance</strong> and has the following form:
+$$
+\sigma^2_{X, unbiased} = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2
+$$
+This estimator is unbiased if the variance exists and the sample values are <strong>drawn independently with replacement</strong>. When we take the square root of the unbiased sample variance, it gives us the <strong>corrected sample standard deviation</strong>.</p>
+<p>Now, why does the second formula above produce an <strong>unbiased estimator of the population variance</strong>? What does <strong>an unbiased estimator</strong> even mean in the first place? We will see that shortly in the section that follows.</p>
+<h1 id="A-Probabilistic-Perspective:-Random-Variables">A Probabilistic Perspective: Random Variables<a class="anchor-link" href="#A-Probabilistic-Perspective:-Random-Variables"> </a></h1><p>To introduce the notion of <em>an unbiased estimator</em>, we have to first talk about random variables.</p>
+<h2 id="Let's-build-some-intuitions-first">Let's build some intuitions first<a class="anchor-link" href="#Let's-build-some-intuitions-first"> </a></h2><p>For this section, we will be discussing primarily <strong>discrete random variables</strong>. Note that there are also <strong>continuous random variables</strong> as well, which we will discuss in later chapters (they work similarly to discrete random variables though, except on a continuous scale).</p>
+<h3 id="Random-Variables">Random Variables<a class="anchor-link" href="#Random-Variables"> </a></h3><p>A <strong>random variable is a numerical function defined on an outcome space</strong>. You can think of the outcome space as <strong>a collection of possible outcomes we can achieve for a certain event</strong>. For example, if I toss a coin, I can define my outcome space as the set $X$, where $X = \{ H, T \}$ ($H$ is for head up, $T$ is for tail up). A more concrete way of putting this is that it is a variable that can <strong>take on a collection of possible values as numerical outcomes for a random event</strong>.</p>
+<h3 id="Probability-Distribution">Probability Distribution<a class="anchor-link" href="#Probability-Distribution"> </a></h3><p>The probability distribution of a random variable includes <strong>all possible values the random variable can take on along with their probabilities</strong> (the chance that the random variable takes on that value). There are many ways we can represent the probability distribution of a random variable, some common ways include:</p>
+<ul>
+<li>A probability distribution table, where we enumerate all possibilities (usually the
+value the random variable + the probability that happens) <strong>row by row</strong>.</li>
+<li>A <strong>histogram</strong> visualizing the distribution, where the $x$ axis stands for the values the random variable takes on, and the $y$ axis maps to the corresponding probability.</li>
+</ul>
+<p>For example, a probability distribution table summarizing the random variable $X$ for the random event of tossing a fair coin and checking which side it lands on is as follows:</p>
+<table>
+<thead><tr>
+<th>$x$</th>
+<th style="text-align:center">$P(X = x)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$H$</td>
+<td style="text-align:center">$\frac{1}{2}$</td>
+</tr>
+<tr>
+<td>$T$</td>
+<td style="text-align:center">$\frac{1}{2}$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Expectation-(Expected-Value)">Expectation (Expected Value)<a class="anchor-link" href="#Expectation-(Expected-Value)"> </a></h2><h3 id="Definition-and-Example">Definition and Example<a class="anchor-link" href="#Definition-and-Example"> </a></h3><p>The expected value of a random variable $X$, denoted by $E[X]$, represents the average of the possible values $X$ can take on weighted by their probabilities. Again, it gives us a notion of where the ”center” of the probability distribution lies if we plot that out for $X$.</p>
+<p>For all possible values of $x$ that the random variable $X$ can take on:
+$$E[X] = \sum_{\text{all } x's} x \cdot P(X = x)$$
+For example, if I have the value of a regular die after rolling as a random variable $X$, the expected value of $X$ can be calculated as the sum of all the possible values the die can have multiplied (or weighted) by the chance of us getting that particular value.</p>
+<p>More detailedly, we can treat <strong>the event of rolling a regular die and checking the number that is facing up</strong> as a random variable $X$. $X$ takes on the following probability distribution</p>
+<table>
+<thead><tr>
+<th>$x$</th>
+<th style="text-align:center">$P(X = x)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1$</td>
+<td style="text-align:center">$\frac{1}{6}$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td style="text-align:center">$\frac{1}{6}$</td>
+</tr>
+<tr>
+<td>$3$</td>
+<td style="text-align:center">$\frac{1}{6}$</td>
+</tr>
+<tr>
+<td>$4$</td>
+<td style="text-align:center">$\frac{1}{6}$</td>
+</tr>
+<tr>
+<td>$5$</td>
+<td style="text-align:center">$\frac{1}{6}$</td>
+</tr>
+<tr>
+<td>$6$</td>
+<td style="text-align:center">$\frac{1}{6}$</td>
+</tr>
+</tbody>
+</table>
+<p>The expected value of $X$ is equal to:
+$$E[X] = \sum_{x=1}^6 x \cdot P(X = x)$$
+Note that $P(X=x)$ is the same for all $x$'s, we can factor that probability outside the sumamtion:
+$$E[X] = P(X=x) \sum_{x=1}^6 x = \frac{1}{6}(1+2+3+4+5+6) = \frac{21}{6} = 3.5.$$</p>
+<h3 id="Properties-of-Expected-Values">Properties of Expected Values<a class="anchor-link" href="#Properties-of-Expected-Values"> </a></h3><p>Here are a few common arithmetic properties of expectations that are helpful when dealing with a transformed/augmented dataset. For random variables $X, Y$, and a real-valued scalar $a$:</p>
+<ul>
+<li><strong>Non-negativity</strong>: if $X \geq 0$, then $E[X] \geq 0$.</li>
+<li><strong>Linearity of Expectation</strong>: <ul>
+<li>$E[X+Y] = E[X] + E[Y].$</li>
+<li>$E[aX] = aE[X].$</li>
+</ul>
+</li>
+<li><strong>Independence</strong>:<ul>
+<li>If $X$ and $Y$ are <strong>mutually independent of each other</strong>:<ul>
+<li>$E[XY] = E[X]E[Y].$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Non-degeneracy</strong>:<ul>
+<li>If $E[X] = 0$, then it must be true that $X = 0$.</li>
+</ul>
+</li>
+<li><strong>Expected Value of a Constant</strong>:<ul>
+<li>$E[a] = a.$</li>
+</ul>
+</li>
+<li><strong>Expected Value of Functions of a Random Variable</strong><ul>
+<li>Suppose the random variable $Y = f(X)$, where $f$ is a function applied on every value $X$ can take on. More precisely, $Y$ has the probability distribution: $$p_Y = \{ (f(x_1), P(Y = x_1)), \dots, (f(x_n), P(Y = x_n))\},$$ $$ E[Y] = E[f(X)] = \sum_{i=1}^n f(x_i) P(X = x_i).$$</li>
+</ul>
+</li>
+</ul>
+<p>An illustration of the last property (expected value of functions of a random variable) is as follows. Consider $X$ again as the random variable representing tossing a regular die and checking the number facing up, and let $Y$ be another random variable such that $Y = f(X)$, where $f(\omega) = \omega^2$ for all $\omega$ in the outcome space of $X$. We have:
+$$E[Y] =  E[f(X)] = \sum_{i=1}^n f(x_i)^2 P(X=x_i) = \sum_{i=1}^6 (x_i)^2 P(X=x_i)$$
+Simplifying further, this gives us:
+$$E[Y] = \frac{1^2 + 2^2 + 3^2 +4^2 +5^2 +6^2}{6} = \frac{91}{6}$$</p>
+<h2 id="Variance">Variance<a class="anchor-link" href="#Variance"> </a></h2><h2 id="Definition-and-Example">Definition and Example<a class="anchor-link" href="#Definition-and-Example"> </a></h2><p>Variance is the expectation of the squared deviation of a random variable from its mean. Informally, it measures how far a set of (random) numbers are spread out from their average value.</p>
+<p>The variance is defined as follows:
+$$Var[X] = E[(X - \mu)^2], \:\: \mu = E[X]$$
+There is also a more straightforward computational formula for the variance (we can derive upon expanding the inside of the expectation and using some of the previous properties of expectations we have mentioned above):
+$$Var[X] = E[X^2] - (E[X])^2$$</p>
+<p>Here's the derivation for the computational formula above:
+$$
+\begin{aligned}
+    Var[X] &amp;= E[(X-\mu)^2] = E[X^2 - 2\mu X + \mu^2] = E[X^2] - E[2\mu X] + E[\mu^2] \\
+           &amp;= E[X^2] - 2\mu E[X] + \mu^2 = E[X^2] - 2\mu^2 + \mu^2 \\
+           &amp;= E[X^2] - \mu^2 \\
+           &amp;= E[X^2] - (E[X])^2
+\end{aligned}
+$$
+Let's revisit the example of rolling the die. Let $X$ be the random variable of rolling a regular die and checking the number facing up, we have:
+$$
+Var[X] = E[X^2] - (E[X])^2 = \frac{91}{6} - (\frac{21}{6})^2 = \frac{35}{12}
+$$
+We can also use the <strong>biased variance estimate</strong> formula from the statistical perspective:
+$$
+Var[X] = \frac{1}{6}\sum_{i=1}^6 (x_i - \mu)^2 = \frac{\sum_{i=1}^6 (x_i - 3.5)^2}{6} = \frac{35}{12}
+$$</p>
+<h3 id="Properties-of-Variance">Properties of Variance<a class="anchor-link" href="#Properties-of-Variance"> </a></h3><p>Let $X$ be a random variable, and $c$ a real-valued scalar, we have:</p>
+<ul>
+<li>$Var[cX] = c^2 Var[X].$</li>
+<li>$Var[X + c] = Var[X].$</li>
+</ul>
+<p>In general, for two random variables $X$ and $Y$, $Var[X+Y] \neq Var[X] + Var[Y]$.</p>
+<h1 id="Unbiased-Estimator">Unbiased Estimator<a class="anchor-link" href="#Unbiased-Estimator"> </a></h1><p>Now that we have talked about both the statistical and probabilistic perspectives of summarizing data, let's return to the question we posed in the earlier section about the unbiased estimator of the population variance.</p>
+<h2 id="What's-the-bias-of-an-estimator?">What's the bias of an estimator?<a class="anchor-link" href="#What's-the-bias-of-an-estimator?"> </a></h2><p>Recall in the data science lifecycle, the 4th stage requires us to build a model that makes predictions/estimations which address the hypothesis/experiment we formulate. Let's call this model an estimator. The bias of the estimator measures <strong>the difference between this estimator's expected value and the true value of the parameter being estimated</strong>.</p>
+<h2 id="What's-an-unbiased-estimator?">What's an unbiased estimator?<a class="anchor-link" href="#What's-an-unbiased-estimator?"> </a></h2><p>Based on our definition above, an unbiased estimator is an estimator that has 0 bias. In other words, if <strong>the estimator's expected value is equal to the true value of the parameter being estimated</strong>, the estimator is <strong>unbiased</strong>.</p>
+<h2 id="Biased-v.s.-Unbiased-Estimators-of-Population-Variance">Biased v.s. Unbiased Estimators of Population Variance<a class="anchor-link" href="#Biased-v.s.-Unbiased-Estimators-of-Population-Variance"> </a></h2><p>Let's revisit the example we mentioned earlier. Recall that <strong>the uncorrected sample variance</strong> for a sample dataset of $n$ samples is defined as:
+$$\sigma^2_{X, biased} = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2$$.
+Assuming our data sampling process is random and even, we can treat all $n$ samples $x_1, x_2, \dots, x_n$ as independent and identically distributed (i.i.d) random variables $X_1, X_2, \dots, X_n$ with expected value $\mu$ and variance $\sigma^2$.</p>
+<p>We can see that the <strong>true variance of the sample dataset</strong> is $\frac{1}{n}\cdot n\sigma^2 = \sigma^2$.</p>
+<p>To check that <strong>the uncorrected sample variance</strong> is a biased estimator of $\sigma^2$, we evaluate:
+$$
+\begin{aligned}
+    E[\sigma^2_{X, biased}] &amp;= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^2\right] \\
+     &amp;=  E\left[\frac{1}{n}\sum_{i=1}^n \left( (X_i - \mu)^2 + 2(\bar{X} - \mu)(X_i - \mu) + (\bar{X} - \mu)^2 \right)\right] \\
+    &amp;= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 + \frac{2}{n}(\bar{X} - \mu)\sum_{i=1}^n (X_i - \mu) + (\bar{X} - \mu)^2 \right] \\
+    &amp;= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 + \frac{2}{n}(\bar{X} - \mu)\cdot n \cdot (X_i - \mu) + (\bar{X} - \mu)^2 \right] \\
+    &amp;= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 + 2(\bar{X} - \mu)^2 + (\bar{X} - \mu)^2 \right] \\
+    &amp;= E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \mu)^2 \right] + E\left[(\bar{X} - \mu)^2 \right] \\
+    &amp;= \sigma^2 - E\left[(\bar{X} - \mu)^2\right] \\
+    &amp;= \left( 1 - \frac{1}{n} \right) \sigma^2 &lt; \sigma^2.
+\end{aligned}
+$$
+Hence, we can see that $E[\sigma^2_{X, biased}] \neq sigma^2$.</p>
+<p>On the other hand, we also have the <strong>the corrected sample variance</strong>:
+$$\sigma^2_{X, unbiased} = \frac{1}{n - 1}\sum_{i=1}^n (x_i - \bar{x})^2$$.
+Again, Let's evaluate the expected value of the corrected sample variance:
+$$
+\begin{aligned}
+    E[\sigma^2_{X, unbiased}] &amp;= \frac{n}{n-1}E\left[\frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^2\right] \\
+    &amp;= \frac{n}{n-1}\left(1-\frac{1}{n}\right)\sigma^2 \\
+    &amp;= \sigma^2.
+\end{aligned}
+$$</p>
+<p>Hence, we can see that the <strong>corrected sample variance is an unbiased estimator of the population variance</strong>, $\sigma^2$.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

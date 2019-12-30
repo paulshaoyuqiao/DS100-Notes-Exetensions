@@ -22,8 +22,8 @@ email: paulshaoyuqiao1@berkeley.edu
 description: >-
   This is a book focused on supplementing and extending the materials taught in UC Berkeley's Principles & Techniques of Data Science (Data 100).
 
-baseurl: /intro  # the subpath of your site, e.g. /blog. If there is no subpath for your site, use an empty string ""
-url: https://paulshaoyuqiao.github.io/DS100-Notes-Exetensions                  # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: /DS100-Notes-Exetensions/intro  # the subpath of your site, e.g. /blog. If there is no subpath for your site, use an empty string ""
+url: https://paulshaoyuqiao.github.io                  # the base hostname & protocol for your site, e.g. http://example.com
 
 
 #######################################################################################
